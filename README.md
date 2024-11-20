@@ -31,3 +31,8 @@ black . --config ./pyproject.toml
 '''bash
 python -m flask --app main run
 '''
+
+### Migration
+'''bash
+python -m flask --app main db migrate -m "create user auth table"
+'''

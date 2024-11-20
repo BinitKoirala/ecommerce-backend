@@ -1,3 +1,4 @@
+from flask import request, jsonify
 from ..model import Category
 from ..database import database
 
@@ -48,3 +49,20 @@ class UserController:
             "email": user.email,
             "status": user.status,
         }, 200
+
+
+    def add_user(self):
+    
+        user_request: dict = request.get_json()
+        
+        response = self.user_service.create_user(user_detail=user_request)
+        
+        print(response)
+        
+        if not response:
+            return {"message": "Unable to register user."},500
+        
+        return{
+            "message": "User registration successful.",
+            "data":jsonify(response)
+        },201
