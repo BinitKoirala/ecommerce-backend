@@ -6,7 +6,7 @@ class Order_items(database.Model):
         database.Integer, primary_key=True, autoincrement=True
     )
     order_id = database.Column(
-        database.Integer, ForeignKey("order.order_id"), nullable=True
+        database.Integer, database.ForeignKey("order.order_id"), nullable=True
     )
     product_name = database.Column(database.string(255), nullable=False)
     quantity = database.Column(database.Integer, nullable=False)

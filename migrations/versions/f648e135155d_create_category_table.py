@@ -1,8 +1,8 @@
-"""Create category table.
+"""Create product table
 
-Revision ID: 543e487932eb
-Revises: 131ddc6b4899
-Create Date: 2024-09-29 21:03:12.787437
+Revision ID: f648e135155d
+Revises: 
+Create Date: 2024-11-22 20:10:02.540933
 
 """
 
@@ -11,8 +11,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "543e487932eb"
-down_revision = "131ddc6b4899"
+revision = "f648e135155d"
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -25,7 +25,7 @@ def upgrade():
         sa.Column("name", sa.String(length=255), nullable=False),
         sa.Column("description", sa.String(length=255), nullable=True),
         sa.Column("created_at", sa.TIMESTAMP(), nullable=True),
-        sa.Column("updated", sa.TIMESTAMP(), nullable=True),
+        sa.Column("updated_at", sa.TIMESTAMP(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###
