@@ -31,3 +31,7 @@ class UserAuth(database.Model):
         database.TIMESTAMP, default=datetime.now(tz=timezone.utc)
     )
     email = database.Column(database.String(50), nullable=False, unique=True)
+    status = database.Column(
+        database.Enum("ACTIVE", "INACTIVE", "BANNED", name="user_auth_status_enum"),
+        nullable=False,
+    )

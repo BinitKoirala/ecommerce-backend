@@ -22,7 +22,6 @@ DB_USER = os.environ.get("DB_USER")
 DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:admin1@127.0.0.1:5432/ecommerce"
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )

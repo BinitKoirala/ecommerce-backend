@@ -37,8 +37,6 @@ class UserService:
 
         database.session.add(user)
         database.session.commit()
-        
-        
 
         user_auth = UserAuth(
             user_id=user.user_id,
@@ -48,8 +46,8 @@ class UserService:
         )
 
         database.session.add(user_auth)
-        
+
         database.session.commit()
-        #user_auth.session.commit()
-        
+        # user_auth.session.commit()
+
         return user
