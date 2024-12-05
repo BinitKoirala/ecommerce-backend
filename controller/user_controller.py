@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request
 from ..model import Category
 from ..database import database
 
@@ -53,15 +53,23 @@ class UserController:
     def add_user(self):
 
         user_request: dict = request.get_json()
+        print (user_request)
 
         response = self.user_service.create_user(user_detail=user_request)
 
-        print(response)
+        
 
         if not response:
             return {"message": "Unable to register user."}, 500
 
         return {
-            "message": "User registration successful.",
-            "data": jsonify(response),
+            "message": "User registration successful."
         }, 201
+    
+    def delete_user(self, id: int):
+        user = self.user_service.delete_user_by_id(id=id)
+        
+        if user is None:
+            return{"message":"User not found."}, 404
+        
+        return {"message": "User deleted successfully."}, 200
