@@ -1,3 +1,4 @@
+import bcrypt
 from ..model.user import User
 from ..database import database
 from ..model.user_auth import UserAuth
@@ -25,14 +26,14 @@ class UserService:
     @classmethod
     def create_user(cls, user_detail: dict):
         """A function to create a user."""
+        
+        password = user_detail["password"].encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
 
         user = User(
             first_name=user_detail["first_name"],
             last_name=user_detail["last_name"],
-            date_of_birth=user_detail["dob"],
             email=user_detail["email"],
-            status="active",
-            role="user",
         )
 
         database.session.add(user)
@@ -41,8 +42,9 @@ class UserService:
         user_auth = UserAuth(
             user_id=user.user_id,
             email=user.email,
-            hashed_password=user_detail["password"],
+            hashed_password=hashed_password,
             role="USER",
+            status="ACTIVE"
         )
 
         database.session.add(user_auth)
@@ -51,3 +53,19 @@ class UserService:
         # user_auth.session.commit()
 
         return user
+    
+    @classmethod
+    
+    def delete_user_by_id(cls, id:int):
+        """A function to delete user by ID."""
+        
+        user: User = User.query.get(id)
+        if user is None:
+            return None
+        
+        user_auth: UserAuth = UserAuth.query.filter_by(user_id=id).first()
+        if user_auth:
+            user_auth.status = "INACTIVE"
+            database.session.commit()
+        return user
+            
